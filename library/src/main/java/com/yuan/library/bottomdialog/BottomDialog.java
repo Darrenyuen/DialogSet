@@ -18,7 +18,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.yuan.dialogset.R;
+import com.yuan.library.R;
 
 import java.util.ArrayList;
 import java.util.List;
