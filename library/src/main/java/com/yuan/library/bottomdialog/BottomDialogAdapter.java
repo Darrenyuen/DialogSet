@@ -14,8 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.yuan.dialogset.utils.ConvertUtil;
-import com.yuan.dialogset.utils.LayoutUtil;
+import com.yuan.library.utils.ConvertUtil;
+import com.yuan.library.utils.LayoutUtil;
 
 import java.util.List;
 
@@ -105,11 +105,7 @@ public class BottomDialogAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         private Drawable getIcon(Drawable drawable) {
             if (drawable != null) {
-//                int width = drawable.getIntrinsicWidth();
-//                int height = drawable.getIntrinsicHeight();
-//                Log.d(TAG, "icon: " + width + " " + height);
                 Bitmap bitmap = ConvertUtil.drawableToBitmap(drawable);
-//                Log.d(TAG, "icon: " + oldBmp.getWidth() + " " + oldBmp.getHeight());
                 return new BitmapDrawable(bitmap);
             }
             return null;
