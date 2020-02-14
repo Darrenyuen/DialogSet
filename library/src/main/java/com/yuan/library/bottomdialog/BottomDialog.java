@@ -2,7 +2,6 @@ package com.yuan.library.bottomdialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.SupportMenuInflater;
 import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,30 +29,37 @@ import java.util.List;
  **/
 public class BottomDialog extends Dialog{
 
-    private String TAG = this.getClass().getSimpleName();
+    public static final int VERTICAL = 0;
+    public static final int HORIZONTAL = 1;
 
     private BottomDialogAdapter adapter;
     private List<Item> items;
 
+    private int orientation;
+    private int count;
     private String title;
     private TextView titleTextView;
     private int menu;
-    private int margin;
-    private int iconSize;
+    private int padding;
+    private int paddingInItem;
     private int itemSize;
+    private int itemTextColor;
     private OnItemClickListener onItemClickListener;
 
     LinearLayout container;
 
-
-    public BottomDialog(@NonNull Context context, Builder builder) {
+    private BottomDialog(@NonNull Context context, Builder builder) {
         super(context, R.style.BottomDialog);
+        this.orientation = builder.orientation;
+        this.count = builder.count;
         this.title = builder.title;
         this.menu = builder.menu;
-        this.margin = builder.margin;
-        this.iconSize = builder.iconSize;
+        this.padding = builder.padding;
+        this.paddingInItem = builder.paddingInItem;
         this.itemSize = builder.itemSize;
+        this.itemTextColor = builder.itemTextColor;
         this.onItemClickListener = builder.onItemClickListener;
+
         setContentView(R.layout.bottom_dialog);
         getWindow().setGravity(Gravity.BOTTOM);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
@@ -74,10 +81,6 @@ public class BottomDialog extends Dialog{
         itemsAttachView();
     }
 
-    /**
-     * 拿到用户传入的menu数据
-     * @param menu
-     */
     private void inflateMenu(int menu) {
         MenuInflater inflater = new SupportMenuInflater(getContext());
         MenuBuilder menuBuilder = new MenuBuilder(getContext());
@@ -87,17 +90,18 @@ public class BottomDialog extends Dialog{
             MenuItem menuItem = menuBuilder.getItem(i);
             items.add(new Item(menuItem.getItemId(), menuItem.getTitle().toString(), menuItem.getIcon()));
         }
-        Log.d(TAG, "inflateMenu: " + items.size());
     }
 
-    /**
-     * 展示用户自定义的menu数据
-     */
     private void itemsAttachView() {
+        RecyclerView.LayoutManager manager;
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        if (orientation == 0) {
+             manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        } else {
+            manager = new GridLayoutManager(getContext(), count);
+        }
 
-        adapter = new BottomDialogAdapter(onItemClickListener, items, margin, iconSize, itemSize);
+        adapter = new BottomDialogAdapter(onItemClickListener, orientation, count, items, padding, paddingInItem, itemSize, itemTextColor);
 
         RecyclerView recyclerView = new RecyclerView(getContext());
         recyclerView.setLayoutParams(params);
@@ -107,25 +111,35 @@ public class BottomDialog extends Dialog{
         container.addView(recyclerView);
     }
 
-    /**
-     * 负责接受用户自定义的参数
-     */
     public static class Builder {
 
-
         private Context context;
+        private int orientation = 0;
+        private int count = 5;
         private String title;
         private int titleSize = 20;
         private int menu;
-        private int margin = 0;
-        private int iconSize;
+        private int padding = 5;
+        private int paddingInItem = 10;
         private int itemSize = 16;
+        private int itemTextColor;
         private OnItemClickListener onItemClickListener;
         private boolean isCanceledTouchOutside = true;
 
 
         public Builder(@NonNull Context context) {
             this.context = context;
+            itemTextColor = context.getResources().getColor(R.color.textColorGrey);
+        }
+
+        public Builder orientation(int orientation) {
+            this.orientation = orientation;
+            return this;
+        }
+
+        public Builder count(int count) {
+            this.count = count;
+            return this;
         }
 
         public Builder title(String title) {
@@ -143,18 +157,23 @@ public class BottomDialog extends Dialog{
             return this;
         }
 
-        public Builder marginLeft(int margin) {
-            this.margin = margin;
+        public Builder padding(int padding) {
+            this.padding = padding;
             return this;
         }
 
-        public Builder iconSize(int iconSize) {
-            this.iconSize = iconSize;
+        public Builder paddingInItem(int paddingInItem) {
+            this.paddingInItem = paddingInItem;
             return this;
         }
 
         public Builder itemSize(int itemSize) {
             this.itemSize = itemSize;
+            return this;
+        }
+
+        public Builder itemTextColor(int itemTextColor) {
+            this.itemTextColor = itemTextColor;
             return this;
         }
 
