@@ -1,5 +1,7 @@
 DialogSet简介
 -------
+[![](https://jitpack.io/v/jarvisyuen/DialogSet.svg)](https://jitpack.io/#jarvisyuen/DialogSet)
+
 为Android devers 提供各种用途广泛、易于使用、可高度自定义的会话框。
 
 添加方法
@@ -16,7 +18,7 @@ allprojects {
 2. 在Module的build.gradle下添加：
 ```
 dependencies {
-                implementation 'com.github.jarvisyuen:DialogSet:1.0'
+                implementation 'com.github.jarvisyuen:DialogSet:1.1'
         }
 ```
 
@@ -144,7 +146,7 @@ tipDialog.show();
 -------
 
 - [v1.1](https://github.com/jarvisyuen/DialogSet/releases/tag/1.1)
-发布底部弹框与提示会话框(需要申请网络权限)
+发布图片弹框(需要申请网络权限)
 
 - [v1.0](https://github.com/jarvisyuen/DialogSet/releases/tag/1.0)
 发布底部弹框与提示会话框
