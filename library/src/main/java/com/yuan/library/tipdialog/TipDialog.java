@@ -34,6 +34,7 @@ public class TipDialog extends Dialog {
     private int contentSize = 18;
     private int negativeColor;
     private int positiveColor;
+    private boolean isCanceledTouchOutside = false;
 
     public TipDialog(@NonNull Context context) {
         super(context, R.style.TipDialog);
@@ -52,6 +53,10 @@ public class TipDialog extends Dialog {
 
     public void negativeOnClickListener(View.OnClickListener negativeOnClickListener) {
         this.negativeOnClickListener = negativeOnClickListener;
+    }
+
+    public void isCanceledTouchOutside(boolean isCanceledTouchOutside) {
+        this.isCanceledTouchOutside =  isCanceledTouchOutside;
     }
 
     public void title(String title) {
@@ -88,6 +93,7 @@ public class TipDialog extends Dialog {
 
     @Override
     public void show() {
+        setCanceledOnTouchOutside(isCanceledTouchOutside);
         titleTextView = findViewById(R.id.title);
         contentTextView = findViewById(R.id.content);
         negativeButton = findViewById(R.id.negative);
