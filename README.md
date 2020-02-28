@@ -1,23 +1,44 @@
 DialogSet简介
 -------
-为Android devers 提供各种用途广泛、易于使用、可高度自定义的会话框。
+为Android devers 提供用途广泛、易于使用、可高度自定义的会话框。
 
 添加方法
 -------
 1. 在Project的build.gradle文件中配置仓库地址：
 ```
 allprojects {
-                repositories {
-                        ...
-                        maven { url 'https://jitpack.io' }
-                }
-        }
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+     }
+}
 ```
 2. 在Module的build.gradle下添加：
 ```
 dependencies {
-                implementation 'com.github.jarvisyuen:DialogSet:1.0'
-        }
+    implementation 'com.github.jarvisyuen:DialogSet:1.2'
+}
+```
+弹出Banner
+-------
++ 效果图
+
+![bannerDialog.png](https://github.com/jarvisyuen/DialogSet/blob/master/Screenshots/bannerdialog.gif)
+
+```
+List<String> imageList = new LinkedList<>();
+                imageList.add("http://img.mp.itc.cn/q_70,c_zoom,w_640/upload/20170123/cf35207a32f84f4fb93e2ea2139739c8_th.jpg");
+                imageList.add("http://img.mp.itc.cn/q_70,c_zoom,w_640/upload/20170123/cf35207a32f84f4fb93e2ea2139739c8_th.jpg");
+                imageList.add("http://img.mp.itc.cn/q_70,c_zoom,w_640/upload/20170123/cf35207a32f84f4fb93e2ea2139739c8_th.jpg");
+                new BannerDialog.Builder(this)
+                        .imageList(imageList)
+                        .onImageClickListener(new com.yuan.library.bannerdialog.OnImageClickListener() {
+                            @Override
+                            public void onImageClick(int index) {
+                                Toast.makeText(MainActivity.this, "" + index, Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .build();
 ```
 
 图片对话框
@@ -142,6 +163,8 @@ tipDialog.show();
 
 更新日志
 -------
+- [v1.2](https://github.com/jarvisyuen/DialogSet/releases/tag/1.2)
+发布弹出轮播图
 
 - [v1.1](https://github.com/jarvisyuen/DialogSet/releases/tag/1.1)
 发布底部弹框与提示会话框(需要申请网络权限)
