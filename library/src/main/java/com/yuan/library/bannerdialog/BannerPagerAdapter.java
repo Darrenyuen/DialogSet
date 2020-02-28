@@ -19,11 +19,11 @@ class BannerPagerAdapter extends PagerAdapter {
     private List<ImageView> imageViewList;
     private LoadImageToView loadImageToView;
 
-    BannerPagerAdapter(List<String> urlList, List<ImageView> imageViewList, LoadImageToView loadImageToView) {
+    BannerPagerAdapter(BannerDialog.Builder builder, List<ImageView> imageViewList) {
         super();
-        this.urlList = urlList;
+        this.urlList = builder.getImageList();
         this.imageViewList = imageViewList;
-        this.loadImageToView = loadImageToView;
+        this.loadImageToView = builder.getLoadImageToView();
     }
 
     @Override
@@ -43,9 +43,10 @@ class BannerPagerAdapter extends PagerAdapter {
         if (imageView.getDrawable() == null) {
             if (loadImageToView != null) {
                 loadImageToView.loadImageToView(imageView, urlList.get(position));
+                imageView.setPadding(3, 3, 0, 0);
             }
         }
-        container.addView(imageView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        container.addView(imageView, new ViewGroup.LayoutParams(500, 500));
         return imageView;
     }
 
