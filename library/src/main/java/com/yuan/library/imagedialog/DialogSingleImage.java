@@ -2,10 +2,7 @@ package com.yuan.library.imagedialog;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
 
 /**

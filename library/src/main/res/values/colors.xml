@@ -8,4 +8,6 @@
     <color name="textColorBlack">#414449</color>
     <color name="textColorGrey">#848B99</color>
     <color name="textColorRed">#D0604D</color>
+    <color name="selectColor">#11CCFF</color>
+    <color name="normalColor">#E1E5E8</color>
 </resources>

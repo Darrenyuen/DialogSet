@@ -15,7 +15,7 @@ import com.yuan.library.utils.ConvertUtil;
  * yuan
  * 2020/2/14
  **/
-@SuppressLint("AppCompatCustomView")
+@SuppressLint({"AppCompatCustomView", "ViewConstructor"})
 class DialogImageView extends ImageView {
     private final String TAG = this.getClass().getSimpleName();
 
